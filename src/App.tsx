@@ -1,23 +1,29 @@
 import './App.css'
-import { useQuery } from './hooks/useQuery';
+import { useLanguage } from './providers/LaungageContes'
  
-type Response = {
-  data: {
-    id: number;
-    email: string;
-  };
-}
+
+const translations={
+  en:'Hello',
+  sp:'Hola',
+  fr:'Bonjour'
+} 
 // let timer:number;
 function App() {
- const { data, isLoading, error } = useQuery<Response>("users/2");
-
-if (isLoading) return <p>Loading...</p>;
-if (error) return <p>Error : {error}</p>;
-
+  const  {language, changeLanguage}=useLanguage() as {
+    language: keyof typeof translations;
+    changeLanguage: (lang: string) => void;
+  }
   return (
     <div className='card'>
-     <h3>Custom Hook</h3>
-     <p>User Email :  {data?.data.email} </p>
+     <label htmlFor='language-select'>Choos Language</label>
+     <select name="" id="language-select" onChange={(e) => changeLanguage(e.target.value)}>
+      <option value="en">
+        English
+      </option>
+      <option value="sp">Spanish</option>
+      <option value="fr">French</option>
+     </select>
+     <h4>{translations[language]}</h4>
     </div>
   )
 }
