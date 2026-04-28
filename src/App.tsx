@@ -1,29 +1,41 @@
+import { useState } from 'react';
 import './App.css'
-import { useLanguage } from './providers/LaungageContes'
- 
-
-const translations={
-  en:'Hello',
-  sp:'Hola',
-  fr:'Bonjour'
-} 
+const users = [
+  {
+    id: 1,
+    name: "Mg Mg",
+  },
+  {
+    id: 2,
+    name: "Aug Mg",
+  },
+   {
+    id:3 ,name:"Lg Mg",
+    
+  },
+   {
+    id:1 ,name:"M Mg",
+    
+  }
+];
 // let timer:number;
 function App() {
-  const  {language, changeLanguage}=useLanguage() as {
-    language: keyof typeof translations;
-    changeLanguage: (lang: string) => void;
-  }
+  const [inputValue,setInputValue]=useState('');
+
+  const filterUsers = users.filter((user) => user.name.toLowerCase().includes(inputValue.toLowerCase()));
+
+  
+  
   return (
     <div className='card'>
-     <label htmlFor='language-select'>Choos Language</label>
-     <select name="" id="language-select" onChange={(e) => changeLanguage(e.target.value)}>
-      <option value="en">
-        English
-      </option>
-      <option value="sp">Spanish</option>
-      <option value="fr">French</option>
-     </select>
-     <h4>{translations[language]}</h4>
+
+    <h3>Search Filtering and Debouncing</h3>
+    <input type="text" placeholder="Search users..."  value={inputValue} onChange={(e) => setInputValue(e.target.value)}   />
+    <ul>
+      {filterUsers.map((user) => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
     </div>
   )
 }
