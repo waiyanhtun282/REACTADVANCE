@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.tsx'
 // import { LanguageProvider } from './providers/LaungageContes.tsx'
 import { BrowserRouter,Routes,Route } from 'react-router'
-import Help from './Help.tsx'
+import Help from './lessons/Help.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
